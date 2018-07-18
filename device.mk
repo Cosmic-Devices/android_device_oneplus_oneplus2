@@ -172,10 +172,6 @@ PRODUCT_PACKAGES += \
     liboverlay \
     libtinyxml
 
-# Doze mode
-PRODUCT_PACKAGES += \
-    OneplusDoze
-
 # Filesystem management tools
 PRODUCT_PACKAGES += \
     e2fsck \
@@ -343,6 +339,9 @@ PRODUCT_PACKAGES += \
 # Fdroid
 PRODUCT_PACKAGES += \
     FDroidPrivilegedExtension
+# Power off charging
+PRODUCT_PACKAGES += \
+    charger_res_images
 
 # VR
 PRODUCT_PACKAGES += \
@@ -381,23 +380,16 @@ PRODUCT_PACKAGES += \
 
 # Privileged permission whitelisting
 PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/permissions/privapp-permissions-glassrom.xml:system/etc/permissions/privapp-permissions-glassrom.xml
+    $(LOCAL_PATH)/permissions/privapp-permissions-glassrom.xml:system/etc/permissions/privapp-permissions-glassrom.xml \
+    $(LOCAL_PATH)/permissions/privapp-permissions-cosmicos.xml:system/etc/permissions/privapp-permissions-cosmicos.xml
 
 # JamesDSP lib
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/audio/libjamesdsp.so:$(TARGET_COPY_OUT_VENDOR)/lib/soundfx/libjamesdsp.so \
     $(LOCAL_PATH)/audio/libv4a_fx.so:$(TARGET_COPY_OUT_VENDOR)/lib/soundfx/libv4a_fx.so \
 
-# Opengapps
-GAPPS_VARIANT := stock
-GAPPS_FORCE_PACKAGE_OVERRIDES := true
-GAPPS_BYPASS_PACKAGE_OVERRIDES := Music2
-GAPPS_EXCLUDED_PACKAGES := GoogleCamera
-$(call inherit-product, vendor/opengapps/build/opengapps-packages.mk)
-
 # setup dm-verity configs
 PRODUCT_SYSTEM_VERITY_PARTITION := /dev/block/platform/soc.0/f9824900.sdhci/by-name/system
-PRODUCT_VENDOR_VERITY_PARTITION := /dev/block/platform/soc.0/f9824900.sdhci/by-name/cache
 $(call inherit-product, build/target/product/verity.mk)
 PRODUCT_PACKAGES += \
     slideshow \
@@ -415,6 +407,3 @@ PRODUCT_COPY_FILES += \
 # Vendor security patch level
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.lineage.build.vendor_security_patch=2017-10-01
-
-# Inherit from oppo-common
-$(call inherit-product, device/oppo/common/common.mk)

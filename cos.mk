@@ -21,9 +21,10 @@ $(call inherit-product, $(SRC_TARGET_DIR)/product/full_base_telephony.mk)
 $(call inherit-product, device/oneplus/oneplus2/device.mk)
 
 # Inherit some common Lineage stuff.
-$(call inherit-product, vendor/lineage/config/common_full_phone.mk)
+$(call inherit-product-if-exists, vendor/lineage/config/common_full_phone.mk)
+$(call inherit-product, vendor/cos/common.mk)
 
-PRODUCT_NAME := lineage_oneplus2
+PRODUCT_NAME := cos_oneplus2
 PRODUCT_DEVICE := oneplus2
 PRODUCT_MANUFACTURER := OnePlus
 PRODUCT_BRAND := OnePlus
@@ -42,7 +43,3 @@ BUILD_FINGERPRINT := OnePlus/OnePlus2/OnePlus2:6.0.1/MMB29M/1447858500:user/rele
 PRODUCT_SYSTEM_PROPERTY_BLACKLIST += ro.product.model
 
 TARGET_VENDOR := oneplus
-
-WITH_SU=false
-
-TARGET_UNOFFICIAL_BUILD_ID := anupritaisno1
