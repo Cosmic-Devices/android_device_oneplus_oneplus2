@@ -186,6 +186,7 @@ BOARD_USERDATAIMAGE_PARTITION_SIZE := 59047394304
 BOARD_FLASH_BLOCK_SIZE := 262144
 TARGET_USERIMAGES_USE_EXT4 := true
 TARGET_EXFAT_DRIVER := exfat
+TARGET_USES_MKE2FS := true
 
 # Power
 TARGET_HAS_NO_WIFI_STATS := true
@@ -194,6 +195,18 @@ TARGET_USES_INTERACTION_BOOST := true
 
 # QCOM hardware
 BOARD_USES_QCOM_HARDWARE := true
+
+# RRO
+PRODUCT_ENFORCE_RRO_TARGETS := \
+   Bluetooth \
+   Settings \
+   SettingsProvider \
+   SystemUI \
+   framework-res \
+   Dialer \
+   CarrierConfig \
+   Mms \
+   CellBroadcastReceiver
 
 # SELinux
 include device/qcom/sepolicy/sepolicy.mk
