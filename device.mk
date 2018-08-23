@@ -14,7 +14,8 @@
 # limitations under the License.
 #
 
-$(call inherit-product-if-exists, vendor/oneplus/oneplus2/oneplus2-vendor.mk)
+# No point in doing a build without the proprietary files
+$(call inherit-product, vendor/oneplus/oneplus2/oneplus2-vendor.mk)
 
 # Overlays
 DEVICE_PACKAGE_OVERLAYS += $(LOCAL_PATH)/overlay
@@ -58,7 +59,6 @@ TARGET_SCREEN_HEIGHT := 1920
 TARGET_SCREEN_WIDTH := 1080
 
 $(call inherit-product, frameworks/native/build/phone-xxxhdpi-4096-dalvik-heap.mk)
-$(call inherit-product, frameworks/native/build/phone-xxxhdpi-4096-hwui-memory.mk)
 
 # Dexpreopt
 WITH_DEXPREOPT := true
@@ -89,7 +89,6 @@ PRODUCT_PACKAGES += \
     audio.primary.msm8994 \
     audio.r_submix.default \
     audio.usb.default \
-    audio_policy.msm8994 \
     libaudio-resampler \
     libqcompostprocbundle \
     libqcomvisualizer \
@@ -359,10 +358,6 @@ PRODUCT_PACKAGES += \
     android.hardware.vibrator@1.0-impl \
     android.hardware.vibrator@1.0-service
 
-# Vendor security patch level
-PRODUCT_PROPERTY_OVERRIDES += \
-    ro.lineage.build.vendor_security_patch=2017-10-01
-
 # WiFi
 PRODUCT_PACKAGES += \
     android.hardware.wifi@1.0-service
@@ -388,10 +383,10 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/permissions/privapp-permissions-glassrom.xml:system/etc/permissions/privapp-permissions-glassrom.xml \
     $(LOCAL_PATH)/permissions/privapp-permissions-cosmicos.xml:system/etc/permissions/privapp-permissions-cosmicos.xml
 
-# JamesDSP lib
+# DSP libs
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/audio/libjamesdsp.so:$(TARGET_COPY_OUT_VENDOR)/lib/soundfx/libjamesdsp.so \
-    $(LOCAL_PATH)/audio/libv4a_fx.so:$(TARGET_COPY_OUT_VENDOR)/lib/soundfx/libv4a_fx.so \
+    $(LOCAL_PATH)/audio/libv4a_fx.so:$(TARGET_COPY_OUT_VENDOR)/lib/soundfx/libv4a_fx.so
 
 # setup dm-verity configs
 PRODUCT_SYSTEM_VERITY_PARTITION := /dev/block/platform/soc.0/f9824900.sdhci/by-name/system
@@ -402,8 +397,8 @@ PRODUCT_PACKAGES += \
     verity_warning_images
 
 PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/wifi/p2p_supplicant_overlay.conf:system/etc/wifi/p2p_supplicant_overlay.conf \
-    $(LOCAL_PATH)/wifi/wpa_supplicant_overlay.conf:system/etc/wifi/wpa_supplicant_overlay.conf \
+    $(LOCAL_PATH)/wifi/p2p_supplicant_overlay.conf:$(TARGET_COPY_OUT_VENDOR)/etc/wifi/p2p_supplicant_overlay.conf \
+    $(LOCAL_PATH)/wifi/wpa_supplicant_overlay.conf:$(TARGET_COPY_OUT_VENDOR)/etc/wifi/wpa_supplicant_overlay.conf \
     $(LOCAL_PATH)/wifi/WCNSS_cfg.dat:system/etc/wifi/WCNSS_cfg.dat \
     $(LOCAL_PATH)/wifi/WCNSS_qcom_cfg.ini:system/etc/wifi/WCNSS_qcom_cfg.ini
 
